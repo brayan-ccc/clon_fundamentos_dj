@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block titulo %}{{ titulo_pagina }}{% endblock %}
+
+{% block contenido %}
+  <h2>{{ titulo_pagina }}</h2>
+
+  <form method="post" style="max-width:720px;">
+    {% csrf_token %}
+
+    {{ formulario.non_field_errors }}
+
+    <div style="display:grid; gap:12px;">
+      <div>
+        <label><b>Categoría</b></label><br>
+        {{ formulario.categoria }}
+        <div style="color:#b00;">{{ formulario.categoria.errors }}</div>
+      </div>
+
+      <div>
+        <label><b>Título</b></label><br>
+        {{ formulario.titulo }}
+        <div style="color:#b00;">{{ formulario.titulo.errors }}</div>
+      </div>
+
+      <div>
+        <label><b>Descripción</b></label><br>
+        {{ formulario.descripcion }}
+        <div style="color:#b00;">{{ formulario.descripcion.errors }}</div>
+      </div>
+
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
+        <div>
+          <label><b>Fecha de inicio</b></label><br>
+          {{ formulario.fecha_inicio }}
+          <div style="color:#b00;">{{ formulario.fecha_inicio.errors }}</div>
+        </div>
+
+        <div>
+          <label><b>Carga horaria</b></label><br>
+          {{ formulario.carga_horaria }}
+          <div style="color:#b00;">{{ formulario.carga_horaria.errors }}</div>
+        </div>
+      </div>
+
+      <div>
+        <label>
+          {{ formulario.activo }} <b>Activo</b>
+        </label>
+        <div style="color:#b00;">{{ formulario.activo.errors }}</div>
+      </div>
+    </div>
+
+    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;">
+      <button type="submit" style="padding:10px 14px; border:1px solid #333; border-radius:10px; cursor:pointer;">
+        {% if modo == "crear" %}Guardar{% else %}Actualizar{% endif %}
+      </button>
+
+      {% if modo == "editar" %}
+        <a href="{% url 'cursos:detalle' curso.pk %}" style="padding:10px 14px; border:1px solid #999; border-radius:10px;">
+          Cancelar
+        </a>
+      {% else %}
+        <a href="{% url 'cursos:lista' %}" style="padding:10px 14px; border:1px solid #999; border-radius:10px;">
+          Cancelar
+        </a>
+      {% endif %}
+    </div>
+  </form>
+{% endblock %}

@@ -22,5 +22,5 @@ urlpatterns = [
     # path("inicio/", include("inicio.urls")),
     path("", include("inicio.urls")), # raiz
     path("rutas/", include("rutas.urls")),
-    path("cursos/", include("cursos.urls"))
+    path("cursos/", include("cursos.urls")),
 ]

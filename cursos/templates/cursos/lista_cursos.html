@@ -1,30 +1,39 @@
 {% extends "base.html" %}
-
 {% block titulo %}Cursos{% endblock %}
 
 {% block contenido %}
-  <h2>Listado de cursos</h2>
+  <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;">
+    <h2>Listado de cursos</h2>
+    <a href="{% url 'cursos:crear' %}" style="padding:10px 14px; border:1px solid #333; border-radius:10px;">
+      + Nuevo curso
+    </a>
+  </div>
 
   {% if cursos %}
-    <table style="width:100%; border-collapse: collapse;">
+    <table style="width:100%; border-collapse: collapse; margin-top:12px;">
       <thead>
         <tr>
           <th style="text-align:left; border-bottom:1px solid #ccc; padding:8px;">Título</th>
           <th style="text-align:left; border-bottom:1px solid #ccc; padding:8px;">Categoría</th>
           <th style="text-align:left; border-bottom:1px solid #ccc; padding:8px;">Inicio</th>
-          <th style="text-align:left; border-bottom:1px solid #ccc; padding:8px;">Horas</th>
           <th style="text-align:left; border-bottom:1px solid #ccc; padding:8px;">Activo</th>
+          <th style="text-align:left; border-bottom:1px solid #ccc; padding:8px;">Acciones</th>
         </tr>
       </thead>
       <tbody>
         {% for curso in cursos %}
           <tr>
-            <td style="padding:8px; border-bottom:1px solid #eee;">{{ curso.titulo }}</td>
+            <td style="padding:8px; border-bottom:1px solid #eee;">
+              <a href="{% url 'cursos:detalle' curso.pk %}">Ver</a> {{ curso.titulo }}
+            </td>
             <td style="padding:8px; border-bottom:1px solid #eee;">{{ curso.categoria.nombre }}</td>
-            <td style="padding:8px; border-bottom:1px solid #eee;">{{ curso.fecha_inicio }}</td>
-            <td style="padding:8px; border-bottom:1px solid #eee;">{{ curso.carga_horaria }}</td>
+            <td style="padding:8px; border-bottom:1px solid #eee;">{{ curso.fecha_inicio|date:"d/m/Y" }}</td>
             <td style="padding:8px; border-bottom:1px solid #eee;">
               {% if curso.activo %}Sí{% else %}No{% endif %}
+            </td>
+            <td style="padding:8px; border-bottom:1px solid #eee; display:flex; gap:8px; flex-wrap:wrap;">
+              <a href="{% url 'cursos:editar' curso.pk %}">Editar</a>
+              <a href="{% url 'cursos:eliminar' curso.pk %}">Eliminar</a>
             </td>
           </tr>
         {% endfor %}
