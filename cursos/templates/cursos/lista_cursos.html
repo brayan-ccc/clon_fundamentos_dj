@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block titulo %}Cursos{% endblock %}
+
+{% block contenido %}
+  <h2>Listado de cursos</h2>
+
+  {% if cursos %}
+    <table style="width:100%; border-collapse: collapse;">
+      <thead>
+        <tr>
+          <th style="text-align:left; border-bottom:1px solid #ccc; padding:8px;">Título</th>
+          <th style="text-align:left; border-bottom:1px solid #ccc; padding:8px;">Categoría</th>
+          <th style="text-align:left; border-bottom:1px solid #ccc; padding:8px;">Inicio</th>
+          <th style="text-align:left; border-bottom:1px solid #ccc; padding:8px;">Horas</th>
+          <th style="text-align:left; border-bottom:1px solid #ccc; padding:8px;">Activo</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for curso in cursos %}
+          <tr>
+            <td style="padding:8px; border-bottom:1px solid #eee;">{{ curso.titulo }}</td>
+            <td style="padding:8px; border-bottom:1px solid #eee;">{{ curso.categoria.nombre }}</td>
+            <td style="padding:8px; border-bottom:1px solid #eee;">{{ curso.fecha_inicio }}</td>
+            <td style="padding:8px; border-bottom:1px solid #eee;">{{ curso.carga_horaria }}</td>
+            <td style="padding:8px; border-bottom:1px solid #eee;">
+              {% if curso.activo %}Sí{% else %}No{% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No hay cursos registrados aún.</p>
+  {% endif %}
+{% endblock %}
