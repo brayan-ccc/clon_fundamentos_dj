@@ -15,6 +15,6 @@ class CursoFormulario(forms.ModelForm):
 
         # (Opcional) mejora visual rápida: widgets
         widgets = {
-            "fecha_inicio": forms.DateInput(attrs={"type": "date"}),
+            "fecha_inicio": forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
             "descripcion": forms.Textarea(attrs={"rows": 4}),
         }
